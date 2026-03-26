@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seehane — Immobilier Neuf & International</title>
+  <meta name="description" content="Spécialiste immobilier neuf France, dispositifs de défiscalisation (Pinel, LMNP, LMP, nue-propriété), investissements EMEA, Asie et États-Unis (New York, Los Angeles) — du primo-accédant aux investisseurs institutionnels."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0808;
+      --off-black: #0e0b0b;
+      --dark: #130f0f;
+      --card: #1a1414;
+      --border: #2a1f1f;
+      --orange: #ff7847;
+      --orange-hot: #ff7a38;
+      --violet: #8d5bff;
+      --violet-light: #c09bff;
+      --electric: #4fd8ff;
+      --electric-dim: #46b6da;
+      --white: #f7f3f0;
+      --muted: #8c7f7f;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'Fragment Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* Cursor */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--orange);
+      border-radius: 50%;
+      position: fixed; pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+    .cursor-follower {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(255,92,26,0.5);
+      border-radius: 50%;
+      position: fixed; pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.3s ease, width 0.2s, height 0.2s, border-color 0.2s;
+      transform: translate(-50%, -50%);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(10,8,8,0.98) 0%, transparent 100%);
+      border-bottom: 1px solid rgba(255,92,26,0.08);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+    .nav-logo .logo-s { color: var(--orange); }
+    .nav-logo .logo-dot { color: var(--violet); font-size: 28px; line-height: 0; vertical-align: -4px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--electric); }
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--orange);
+      padding: 11px 26px;
+      text-decoration: none;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--orange-hot); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 56px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 55% at 80% 40%, rgba(124,58,255,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 20% 70%, rgba(255,92,26,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 60% 80%, rgba(0,212,255,0.06) 0%, transparent 55%);
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--electric);
+      margin-bottom: 36px;
+      display: flex; align-items: center; gap: 14px;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--electric);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 8vw, 130px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      position: relative; z-index: 1;
+      max-width: 1000px;
+    }
+    .hero-title .line-orange { color: var(--orange); display: block; }
+    .hero-title .line-outline {
+      display: block;
+      -webkit-text-stroke: 2px rgba(247,243,240,0.2);
+      color: transparent;
+    }
+    .hero-title .line-violet { color: var(--violet-light); display: block; }
+    .hero-sub {
+      margin-top: 40px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.75;
+      position: relative; z-index: 1;
+    }
+    .hero-bottom {
+      margin-top: 64px;
+      display: flex; align-items: center; gap: 60px;
+      position: relative; z-index: 1;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 16px 36px;
+      text-decoration: none;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.25s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary:hover { background: var(--orange-hot); transform: translateY(-2px); }
+    .btn-primary svg { transition: transform 0.25s; }
+    .btn-primary:hover svg { transform: translateX(4px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(0,212,255,0.3);
+      color: var(--electric);
+      font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 0.1em;
+      padding: 16px 30px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-ghost:hover { border-color: var(--electric); background: rgba(0,212,255,0.05); }
+
+    .hero-stats { display: flex; gap: 48px; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 42px; font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--orange), var(--violet-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 6px;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 40px; right: 56px;
+      writing-mode: vertical-rl;
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-scroll::after {
+      content: ''; display: block;
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--violet), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { opacity: 0.3; transform: scaleY(0.5); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* MARQUEE */
+    .marquee-section {
+      padding: 22px 0; overflow: hidden;
+      background: linear-gradient(90deg, var(--violet) 0%, var(--orange) 50%, var(--violet) 100%);
+      background-size: 200% 100%;
+      animation: gradientShift 6s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white); padding: 0 36px;
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0.9;
+    }
+    .marquee-item::after { content: '◆'; opacity: 0.4; font-size: 8px; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* SECTIONS */
+    section { padding: 110px 56px; }
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--electric); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before {
+      content: ''; display: block;
+      width: 28px; height: 1px; background: var(--electric);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(38px, 5vw, 76px);
+      font-weight: 800; line-height: 0.95;
+      letter-spacing: -0.02em; text-transform: uppercase;
+    }
+    .section-title .accent-o { color: var(--orange); }
+    .section-title .accent-v { color: var(--violet-light); }
+    .section-title .accent-e { color: var(--electric); }
+
+    /* SERVICES */
+    .services { background: var(--off-black); }
+    .services-grid {
+      margin-top: 70px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .service-card {
+      background: var(--dark); padding: 48px 38px;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: var(--card); }
+    .service-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:nth-child(1)::before { background: var(--orange); }
+    .service-card:nth-child(2)::before { background: var(--violet-light); }
+    .service-card:nth-child(3)::before { background: var(--electric); }
+    .service-card:nth-child(4)::before { background: var(--orange); }
+    .service-card:nth-child(5)::before { background: var(--violet-light); }
+    .service-card:nth-child(6)::before { background: var(--electric); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.12em;
+      color: var(--muted); margin-bottom: 28px;
+    }
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 14px;
+      color: var(--white);
+    }
+    .service-desc { font-size: 13px; color: var(--muted); line-height: 1.8; }
+    .service-tags { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px; border: 1px solid;
+    }
+    .tag-o { color: var(--orange); border-color: rgba(255,92,26,0.3); }
+    .tag-v { color: var(--violet-light); border-color: rgba(160,107,255,0.3); }
+    .tag-e { color: var(--electric); border-color: rgba(0,212,255,0.3); }
+
+    /* ABOUT */
+    .about-section { padding: 110px 56px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual-box {
+      background: var(--dark); border: 1px solid var(--border);
+      padding: 60px; aspect-ratio: 1;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .about-visual-box::before {
+      content: 'S';
+      font-family: var(--font-display); font-size: 400px; font-weight: 800;
+      position: absolute; top: -80px; right: -60px; line-height: 1;
+      background: linear-gradient(135deg, rgba(255,92,26,0.06), rgba(124,58,255,0.06));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-big-stat {
+      font-family: var(--font-display); font-size: 80px; font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--orange), var(--violet-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-stat-label {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); margin-top: 8px;
+    }
+    .about-text { margin-top: 24px; font-size: 15px; color: var(--muted); line-height: 1.8; }
+    .about-features { margin-top: 32px; display: flex; flex-direction: column; gap: 13px; }
+    .about-feature {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--white);
+    }
+    .about-feature::before {
+      content: '→'; color: var(--orange);
+      font-family: var(--font-mono); font-size: 12px;
+    }
+
+    /* MARKETS */
+    .markets { background: var(--off-black); }
+    .markets-grid {
+      margin-top: 70px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .market-card {
+      background: var(--dark); padding: 40px 28px;
+      text-align: center; transition: background 0.3s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .market-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .market-card:nth-child(1)::after { background: var(--orange); }
+    .market-card:nth-child(2)::after { background: var(--electric); }
+    .market-card:nth-child(3)::after { background: var(--violet-light); }
+    .market-card:nth-child(4)::after { background: var(--orange-hot); }
+    .market-card:hover { background: var(--card); transform: translateY(-4px); }
+    .market-card:hover::after { opacity: 1; }
+    .market-flag { font-size: 38px; margin-bottom: 14px; display: block; }
+    .market-name {
+      font-family: var(--font-display); font-size: 18px; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    .market-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* PTZ HIGHLIGHT */
+    .ptz-section {
+      padding: 80px 56px;
+      background: var(--off-black);
+      border-top: 1px solid rgba(255,92,26,0.15);
+      border-bottom: 1px solid rgba(255,92,26,0.15);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .ptz-section::before {
+      content: 'PTZ';
+      position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+      font-family: var(--font-display); font-size: 280px; font-weight: 800;
+      color: rgba(255,92,26,0.03); line-height: 1; pointer-events: none;
+    }
+    .ptz-title {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4vw, 64px); font-weight: 800;
+      text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em;
+    }
+    .ptz-title .t-o { color: var(--orange); }
+    .ptz-title .t-v { color: var(--violet-light); }
+    .ptz-list { display: flex; flex-direction: column; gap: 18px; }
+    .ptz-item { display: flex; gap: 14px; align-items: flex-start; }
+    .ptz-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: rgba(255,92,26,0.1);
+      border: 1px solid rgba(255,92,26,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange);
+      font-family: var(--font-mono); font-size: 12px;
+    }
+    .ptz-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .ptz-text strong {
+      display: block; color: var(--white);
+      font-family: var(--font-display); font-weight: 600; font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    /* PROCESS */
+    .process-steps {
+      margin-top: 70px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    }
+    .step { position: relative; }
+    .step::after {
+      content: '';
+      position: absolute; top: 24px; right: -16px;
+      width: 32px; height: 1px;
+      background: linear-gradient(to right, var(--orange), transparent);
+    }
+    .step:last-child::after { display: none; }
+    .step-num {
+      font-family: var(--font-display); font-size: 48px; font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--orange), var(--violet));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-family: var(--font-display); font-size: 16px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
+    }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--off-black); }
+    .testimonials-grid {
+      margin-top: 60px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .testimonial {
+      background: var(--dark); padding: 36px;
+      transition: background 0.3s;
+    }
+    .testimonial:hover { background: var(--card); }
+    .testimonial-quote {
+      font-family: var(--font-display); font-size: 44px; font-weight: 800;
+      color: var(--orange); line-height: 0.7; margin-bottom: 18px;
+    }
+    .testimonial-text { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .testimonial-author {
+      margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border);
+    }
+    .testimonial-name {
+      font-family: var(--font-display); font-weight: 700; font-size: 13px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .testimonial-role {
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+      margin-top: 4px; letter-spacing: 0.08em;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 140px 56px;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(124,58,255,0.1) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 30% at 20% 80%, rgba(255,92,26,0.08) 0%, transparent 55%);
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 6.5vw, 100px); font-weight: 800;
+      text-transform: uppercase; line-height: 0.9;
+      letter-spacing: -0.03em;
+      max-width: 900px; margin: 0 auto 24px;
+      position: relative; z-index: 1;
+    }
+    .cta-sub {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.14em; color: var(--muted);
+      margin-bottom: 50px; position: relative; z-index: 1;
+    }
+    .cta-buttons {
+      display: flex; gap: 16px; justify-content: center;
+      position: relative; z-index: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--off-black);
+      border-top: 1px solid var(--border);
+      padding: 56px 56px 36px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 56px; margin-bottom: 56px;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 24px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+    }
+    .footer-logo .fl-s { color: var(--orange); }
+    .footer-logo .fl-dot { color: var(--violet-light); }
+    .footer-tagline { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 250px; }
+    .footer-col-title {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 18px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a {
+      font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 26px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 0.08em;
+    }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--electric); }
+
+    /* Animate */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      section, .about-section, .ptz-section { padding: 80px 24px; }
+      .hero { padding: 120px 24px 60px; }
+      .services-grid, .markets-grid, .process-steps, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .ptz-section { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+      footer { padding: 48px 24px 28px; }
+    }
+    @media (max-width: 640px) {
+      .services-grid, .markets-grid, .process-steps, .testimonials-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 28px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  
+.lang-sw { display: flex; align-items: center; gap: .1rem; }
+.lb { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; border: none; background: none; cursor: pointer; color: var(--muted); padding: .3rem .45rem; transition: color .25s; }
+.lb.on { color: var(--white); font-weight: 600; }
+.ls { font-size: .55rem; color: rgba(247,243,240,.4); }
+
+.lang-sw .lb { cursor: pointer !important; pointer-events: auto !important; }
+.lang-sw .ls { pointer-events: none; }
+
+</style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo"><span class="logo-s">S</span>EEHANE<span class="logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">// Services</a></li>
+      <li><a href="#marches">// Marchés</a></li>
+      <li><a href="#ptz">// PTZ</a></li>
+      <li><a href="#processus">// Process</a></li>
+    </ul>
+    <div class="lang-sw">
+      <span class="lb on">FR</span>
+      <span class="ls">/</span>
+      <span class="lb">EN</span>
+      <span class="ls">/</span>
+      <span class="lb">ES</span>
+      <span class="ls">/</span>
+      <span class="lb">DE</span>
+      <span class="ls">/</span>
+      <span class="lb">RU</span>
+    </div>
+    <a href="https://calendly.com/seehane-gomes-papillonpatrimoine/appel--10minutes" class="nav-cta">Prendre rendez-vous →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-eyebrow">( 01 ) — Votre partenaire immobilier neuf</div>
+    <h1 class="hero-title">
+      <span class="line-orange">L'immobilier</span>
+      <span class="line-outline">neuf à votre</span>
+      <span class="line-violet">portée.</span>
+    </h1>
+    <p class="hero-sub">
+      Vente de programmes neufs partout en France, accompagnement PTZ, 
+      investissement international — une expertise globale au service de vos ambitions patrimoniales.
+    </p>
+    <div class="hero-bottom">
+      <a href="#services" class="btn-primary">
+        Nos services
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="https://calendly.com/seehane-gomes-papillonpatrimoine/appel--10minutes" class="btn-ghost">Prendre RDV →</a>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3K+</div>
+          <div class="stat-label">Programmes neufs</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">120K</div>
+          <div class="stat-label">Lots disponibles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Marchés internationaux</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Immobilier Neuf France</span>
+      <span class="marquee-item">Prêt à Taux Zéro</span>
+      <span class="marquee-item">3 000+ Programmes</span>
+      <span class="marquee-item">120 000 Lots</span>
+      <span class="marquee-item">Investissement International</span>
+      <span class="marquee-item">Île Maurice</span>
+      <span class="marquee-item">Dubaï</span>
+      <span class="marquee-item">VEFA · Pinel · LMNP</span>
+      <span class="marquee-item">Immobilier Neuf France</span>
+      <span class="marquee-item">Prêt à Taux Zéro</span>
+      <span class="marquee-item">3 000+ Programmes</span>
+      <span class="marquee-item">120 000 Lots</span>
+      <span class="marquee-item">Investissement International</span>
+      <span class="marquee-item">Île Maurice</span>
+      <span class="marquee-item">Dubaï</span>
+      <span class="marquee-item">VEFA · Pinel · LMNP</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-tag">( 02 ) — Ce que nous faisons</div>
+    <h2 class="section-title">Nos <span class="accent-o">Expertises</span></h2>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-num">// 01</div>
+        <div class="service-name">Vente Immobilier Neuf</div>
+        <p class="service-desc">Accès à plus de 3 000 programmes neufs partout en France — 120 000 lots disponibles. Appartements, maisons, résidences gérées. De la recherche à la signature.</p>
+        <div class="service-tags">
+          <span class="tag tag-o">VEFA</span>
+          <span class="tag tag-o">Toute France</span>
+          <span class="tag tag-o">Résidences</span>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">// 02</div>
+        <div class="service-name">Prêt à Taux Zéro</div>
+        <p class="service-desc">Éligibilité, simulation, montage complet. Je maximise vos droits PTZ 2024-2025 pour réduire significativement votre effort d'achat dès le premier bien.</p>
+        <div class="service-tags">
+          <span class="tag tag-v">Primo-accédants</span>
+          <span class="tag tag-v">Simulation</span>
+          <span class="tag tag-v">PTZ 2025</span>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">// 03</div>
+        <div class="service-name">Investissement International</div>
+        <p class="service-desc">Programmes neufs sélectionnés à Dubaï, Île Maurice, Portugal, Royaume-Uni et Asie (Thaïlande, Indonésie, hubs émergents). Rendements attractifs et cadres fiscaux optimisés pour investisseurs français.</p>
+        <div class="service-tags">
+          <span class="tag tag-e">Dubaï</span>
+          <span class="tag tag-e">Île Maurice</span>
+          <span class="tag tag-e">Portugal</span>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">// 04</div>
+        <div class="service-name">Défiscalisation & Rendement</div>
+        <p class="service-desc">Stratégies Pinel, Pinel Plus, LMNP, LMP, Censi-Bouvard, nue-propriété. Construction d'un portefeuille immobilier optimisé fiscalement pour maximiser votre rendement net sur le long terme.</p>
+        <div class="service-tags">
+          <span class="tag tag-o">Pinel</span>
+          <span class="tag tag-o">LMNP</span>
+          <span class="tag tag-o">Optimisation</span>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">// 05</div>
+        <div class="service-name">Accompagnement Personnalisé</div>
+        <p class="service-desc">De l'analyse patrimoniale à la remise des clés. Un interlocuteur unique, dédié, disponible — sans frais additionnels pour l'acquéreur. Suivi notarial inclus.</p>
+        <div class="service-tags">
+          <span class="tag tag-v">Clé en main</span>
+          <span class="tag tag-v">Suivi complet</span>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">// 06</div>
+        <div class="service-name">Analyse & Data Immobilière</div>
+        <p class="service-desc">Scoring de programmes, analyse de marché, comparatifs de rendements par zone. Des données précises pour des décisions d'investissement éclairées et robustes.</p>
+        <div class="service-tags">
+          <span class="tag tag-e">Scoring</span>
+          <span class="tag tag-e">Analyse marché</span>
+          <span class="tag tag-e">ROI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-visual-box">
+          <div class="about-big-stat">3K+</div>
+          <div class="about-stat-label">Programmes en portefeuille</div>
+          <div style="margin-top:20px; padding-top:20px; border-top: 1px solid var(--border);">
+            <div class="about-big-stat" style="font-size:56px;">120K</div>
+            <div class="about-stat-label">Lots disponibles toute France</div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="section-tag">( 03 ) — Qui suis-je</div>
+        <h2 class="section-title">Approche <span class="accent-v">terrain</span><br/>& <span class="accent-e">data</span></h2>
+        <p class="about-text">
+          Commercial spécialisé en immobilier neuf, je combine expertise terrain et outils d'analyse avancés pour vous offrir une vision complète du marché. Mon approche : la donnée au service de votre décision patrimoniale, avec une analyse massive de programmes, quartiers et rendements pour simplifier vos arbitrages.
+        </p>
+        <div class="about-features">
+          <div class="about-feature">Réseau de promoteurs nationaux et internationaux</div>
+          <div class="about-feature">Outils de scoring et d'analyse propriétaires</div>
+          <div class="about-feature">Connaissance approfondie des dispositifs fiscaux</div>
+          <div class="about-feature">Accompagnement de A à Z sans frais supplémentaires</div>
+          <div class="about-feature">Réactivité, transparence et éthique professionnelle</div>
+        </div>
+        <div style="margin-top:36px;">
+          <a href="#contact" class="btn-primary">
+            Travailler ensemble
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARCHÉS -->
+  <section class="markets" id="marches">
+    <div class="section-tag">( 04 ) — Présence géographique</div>
+    <h2 class="section-title">Marchés <span class="accent-e">couverts</span></h2>
+    <div class="markets-grid">
+      <div class="market-card fade-up">
+        <span class="market-flag">🇫🇷</span>
+        <div class="market-name">France, EMEA & US</div>
+        <p class="market-desc">3 000+ programmes, 120 000 lots. Zones A, A bis, B1, B2. PTZ, Pinel, LMNP, résidences gérées — France & principales capitales EMEA.</p>
+      </div>
+      <div class="market-card fade-up">
+        <span class="market-flag">🇦🇪</span>
+        <div class="market-name">Dubaï</div>
+        <p class="market-desc">Marché en forte croissance, rendements 7-10%, zéro impôt sur les revenus locatifs. Programmes neufs en off-plan.</p>
+      </div>
+      <div class="market-card fade-up">
+        <span class="market-flag">🇲🇺</span>
+        <div class="market-name">Île Maurice</div>
+        <p class="market-desc">Schémas IRS / PDS, résidence permanente, fiscalité à 15%. Idéal pour diversification patrimoniale internationale.</p>
+      </div>
+      <div class="market-card fade-up">
+        <span class="market-flag">🌏</span>
+        <div class="market-name">Asie</div>
+        <p class="market-desc">Thaïlande, Indonésie, Hong Kong, Chine continentale. Résidences hôtelières, condos urbains, co-living et produits défiscalisants dans les hubs en pleine croissance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PTZ -->
+  <div class="ptz-section" id="ptz">
+    <div class="fade-up">
+      <div class="section-tag" style="color:rgba(255,92,26,0.6);">( 05 ) — Dispositif clé</div>
+      <h2 class="ptz-title">
+        <span class="t-o">Le PTZ,</span><br/>
+        votre levier<br/>
+        <span class="t-v">d'achat</span>
+      </h2>
+    </div>
+    <div class="ptz-list fade-up">
+      <div class="ptz-item">
+        <div class="ptz-icon">✓</div>
+        <div class="ptz-text"><strong>Jusqu'à 40% du prix financé à 0%</strong>Selon zone géographique et composition du foyer</div>
+      </div>
+      <div class="ptz-item">
+        <div class="ptz-icon">✓</div>
+        <div class="ptz-text"><strong>Primo-accédants uniquement</strong>Pas propriétaire depuis 2 ans ? Vous êtes éligible.</div>
+      </div>
+      <div class="ptz-item">
+        <div class="ptz-icon">✓</div>
+        <div class="ptz-text"><strong>Simulation gratuite & sans engagement</strong>J'analyse votre dossier et optimise votre plan de financement.</div>
+      </div>
+      <div class="ptz-item">
+        <div class="ptz-icon">✓</div>
+        <div class="ptz-text"><strong>Zones A, A bis, B1, B2 couvertes</strong>Tous mes programmes éligibles PTZ accessibles immédiatement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESSUS -->
+  <section id="processus">
+    <div class="section-tag">( 06 ) — Comment ça marche</div>
+    <h2 class="section-title">En <span class="accent-o">4 étapes</span></h2>
+    <div class="process-steps">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-title">Votre Projet</div>
+        <p class="step-desc">Appel découverte 30 min. Objectifs, budget, horizon d'investissement et préférences géographiques définis ensemble.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-title">Sélection</div>
+        <p class="step-desc">Sélection des programmes les plus adaptés parmi 3 000+ références nationales et internationales scorées.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <div class="step-title">Financement</div>
+        <p class="step-desc">Simulation PTZ, optimisation du plan de financement, mise en relation avec partenaires bancaires si nécessaire.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">04</div>
+        <div class="step-title">Signature & Suivi</div>
+        <p class="step-desc">Accompagnement notarial, suivi du chantier, remise des clés. Disponible bien après la vente.</p>
+      </div>
+    </div>
+    <!-- CLIENT TYPES -->
+  <section id="clients">
+    <div class="section-tag">( 05-bis ) — Profils clients</div>
+    <h2 class="section-title">De l'acheteur<br/><span class="accent-o">primo</span> à l'investisseur<br/><span class="accent-v">institutionnel</span></h2>
+    <div class="process-steps" style="margin-top:60px;grid-template-columns:repeat(4,1fr);">
+      <div class="step fade-up">
+        <div class="step-num">P1</div>
+        <div class="step-title">Primo & familles</div>
+        <p class="step-desc">Monsieur et Madame Tout-le-monde qui achètent leur premier appartement neuf ou un bien pour préparer la retraite.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">P2</div>
+        <div class="step-title">Investisseurs privés</div>
+        <p class="step-desc">Profils expérimentés : multi-propriétaires, cadres, dirigeants, entrepreneurs, gérants de fonds crypto ou web3, à la recherche de rendement et de diversification.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">P3</div>
+        <div class="step-title">Corporate & Family Office</div>
+        <p class="step-desc">Fonds d'investissement, family offices, sociétés de gestion de patrimoine : structuration d'opérations, club deals, off-market.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">P4</div>
+        <div class="step-title">Opérations complexes</div>
+        <p class="step-desc">Rachat de terrains, rachat d'immeubles, vente de projets immobiliers en exclusivité, montages sur-mesure avec partenaires promoteurs.</p>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-tag">( 07 ) — Ils témoignent</div>
+    <h2 class="section-title">La confiance<br/><span class="accent-v">avant tout</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial fade-up">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Un accompagnement d'une rare qualité. Grâce au PTZ et au programme sélectionné, j'ai pu devenir propriétaire avec un apport minimal. Je recommande vivement.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Sophie M.</div>
+          <div class="testimonial-role">// Primo-accédante — Toulouse</div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">J'avais un projet à Dubaï mais je ne savais pas par où commencer. En quelques semaines, tout était bouclé. Professionnalisme exemplaire, zéro stress.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Karim B.</div>
+          <div class="testimonial-role">// Investisseur — Île-de-France</div>
+        </div>
+      </div>
+      <div class="testimonial fade-up">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Les outils d'analyse proposés m'ont permis de comparer les programmes avec une précision que je n'avais jamais vue chez d'autres conseillers. Data-driven, efficace.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Amélie D.</div>
+          <div class="testimonial-role">// Investisseuse — Lyon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="section-tag" style="justify-content:center;"><span style="display:none"></span>( 08 ) — Passons à l'action</div>
+    <h2 class="cta-title">
+      <span style="color:var(--orange)">Votre projet</span><br/>
+      <span style="-webkit-text-stroke:2px rgba(247,243,240,0.2);color:transparent">commence</span><br/>
+      <span style="color:var(--violet-light)">ici.</span>
+    </h2>
+    
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">
+        Prendre rendez-vous
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/in/seehane/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- DATA CENTER -->
+  <section id="datacenters">
+    <div class="section-tag">( 09 ) — Data centers & grands fonciers</div>
+    <h2 class="section-title">Fonciers <span class="accent-o">stratégiques</span><br/>pour <span class="accent-v">data centers</span></h2>
+    <div class="process-steps" style="margin-top:70px;grid-template-columns:repeat(3,1fr);">
+      <div class="step fade-up">
+        <div class="step-num">DC1</div>
+        <div class="step-title">Sourcing & rachat</div>
+        <p class="step-desc">Identification et négociation de fonciers adaptés aux data centers : friches industrielles, zones logistiques, terrains en reconversion à fort potentiel énergétique.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">DC2</div>
+        <div class="step-title">Cadre & autorisations</div>
+        <p class="step-desc">Analyse PLU, servitudes, périmètres environnementaux, contraintes ICPE et risques d'inondation. Coordination avec collectivités, opérateurs réseau et services de l'État.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">DC3</div>
+        <div class="step-title">Spécifications techniques</div>
+        <p class="step-desc">Étude puissance électrique disponible et extensible, redondance, proximité nœuds fibre, latence, refroidissement (air/eau), accessibilité poids lourds, risques sismiques et continuité d'activité.</p>
+      </div>
+    </div>
+    <div class="process-steps" style="margin-top:40px;grid-template-columns:repeat(3,1fr);">
+      <div class="step fade-up">
+        <div class="step-num">DC4</div>
+        <div class="step-title">Montages & partenaires</div>
+        <p class="step-desc">Montage juridique et financier pour opérateurs, hyperscalers, fonds infra et family offices : JV, baux longs, sale & leaseback, exclusivités foncières.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">DC5</div>
+        <div class="step-title">Vue data-driven</div>
+        <p class="step-desc">Comparaison multi-sites via data : coûts d'énergie projetés, contraintes climatiques, densité réseau, fiscalité locale, sensibilité réglementaire pour faciliter l'arbitrage.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">DC6</div>
+        <div class="step-title">Investisseurs ciblés</div>
+        <p class="step-desc">Mise en relation avec investisseurs spécialisés : fonds infra, fonds immobiliers, acteurs cloud, family offices tech, dirigeants et gérants d'actifs digitaux.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><span class="fl-s">S</span>EEHANE<span class="fl-dot">.</span></div>
+        <p class="footer-tagline">Votre partenaire immobilier neuf en France et à l'international. Expertise, data & accompagnement sur-mesure.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">// Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">Immobilier Neuf</a></li>
+          <li><a href="#ptz">PTZ & Financement</a></li>
+          <li><a href="#marches">International</a></li>
+          <li><a href="#services">Défiscalisation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">// Marchés</div>
+        <ul class="footer-links">
+          <li><a href="#marches">France</a></li>
+          <li><a href="#marches">Dubaï</a></li>
+          <li><a href="#marches">Île Maurice</a></li>
+          <li><a href="#marches">Royaume-Uni</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">// Contact</div>
+        <ul class="footer-links">
+          <li>1 rue François Ier<br/>75008 Paris — France</li>
+          <li><a href="https://www.linkedin.com/in/seehane/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://calendly.com/seehane-gomes-papillonpatrimoine/appel--10minutes">contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">MMXXVI © SEEHANE — Tous droits réservés</div>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    let mx = 0, my = 0, fx = 0, fy = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animateCursor() {
+      fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        follower.style.width = '56px'; follower.style.height = '56px';
+        follower.style.borderColor = 'rgba(255,92,26,0.7)';
+      });
+      el.addEventListener('mouseleave', () => {
+        follower.style.width = '32px'; follower.style.height = '32px';
+        follower.style.borderColor = 'rgba(255,92,26,0.4)';
+      });
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
